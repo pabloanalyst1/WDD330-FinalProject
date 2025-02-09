@@ -1,0 +1,18 @@
+# Ignorar archivos del sistema y configuraciones locales
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+*.code-workspace
+
+# Ignorar carpetas de usuario y sistema
+AppData/
+OneDrive/
+Desktop/
+Downloads/
+Documents/
+Music/
+Videos/
+
+# Ignorar dependencias de Node.js (si usas npm en el futuro)
+node_modules/

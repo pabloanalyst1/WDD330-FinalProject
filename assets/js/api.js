@@ -3,21 +3,25 @@ const NEWS_API_URL = `https://newsapi.org/v2/everything?q=gaming OR technology&l
 
 export async function fetchNews() {
     try {
-        const response = await fetch(NEWS_API_URL);
-        
+        const response = await fetch(NEWS_API_URL, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0',  // Añadimos esta cabecera
+                'Accept': 'application/json'
+            }
+        });
+
         if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            throw new Error(`Error: ${response.status}`);
         }
 
         const data = await response.json();
-
         if (!data.articles || data.articles.length === 0) {
             throw new Error("No news articles found.");
         }
 
-        return data.articles; // Return the items list
+        return data.articles;
     } catch (error) {
         console.error('❌ Error fetching news:', error.message);
-        return { error: error.message }; // Return el error to handle it en `ui.js`
+        return { error: error.message };
     }
 }

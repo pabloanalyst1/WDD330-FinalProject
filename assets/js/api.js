@@ -1,20 +1,20 @@
-const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-const NEWS_API_URL = `https://newsapi.org/v2/everything?q=gaming OR technology&language=en&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
+const GNEWS_API_KEY = 'b4060212b0295057d1776747afc62d56';
+const GNEWS_API_URL = `https://gnews.io/api/v4/search?q=gaming OR technology&lang=en&max=10&token=${GNEWS_API_KEY}`;
 
 export async function fetchNews() {
     try {
-        const response = await fetch(PROXY_URL + NEWS_API_URL, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0',
-                'Accept': 'application/json'
-            }
-        });
+        const response = await fetch(GNEWS_API_URL);
 
         if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
         }
 
         const data = await response.json();
+        
+        if (!data.articles || data.articles.length === 0) {
+            throw new Error("No news articles found.");
+        }
+
         return data.articles;
     } catch (error) {
         console.error('❌ Error fetching news:', error.message);

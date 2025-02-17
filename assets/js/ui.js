@@ -26,3 +26,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
     `).join('');
 });
+
+import { fetchUpcomingGames } from './games.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const gamesContainer = document.getElementById('games-container');
+
+    const games = await fetchUpcomingGames();
+
+    if (games.error) {
+        gamesContainer.innerHTML = `<p class="error-message">⚠️ ${games.error}</p>`;
+        return;
+    }
+
+    // Only show 6 recent gamess
+    gamesContainer.innerHTML = games.slice(0, 6).map(game => `
+        <div class="game-card">
+            <img src="${game.background_image || 'assets/images/default-game.jpg'}" 
+                 alt="${game.name}" 
+                 onerror="this.onerror=null; this.src='assets/images/default-game.jpg';">
+            <div class="game-content">
+                <h3>${game.name}</h3>
+                <p>Release Date: ${game.released || 'TBA'}</p>
+                <a href="https://rawg.io/games/${game.slug}" target="_blank">More Info</a>
+            </div>
+        </div>
+    `).join('');
+});

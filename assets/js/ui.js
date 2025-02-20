@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="news-card">
             <img src="${article.image || article.image_url || 'assets/images/default-news.jpg'}" 
                  alt="News Image" 
+                 loading="lazy"
                  onerror="this.onerror=null; this.src='assets/images/default-news.jpg';">
             <div class="news-content">
                 <h3>${article.title}</h3>
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="game-card">
             <img src="${game.background_image || 'assets/images/default-game.jpg'}" 
                  alt="${game.name}" 
+                 loading="lazy"
                  onerror="this.onerror=null; this.src='assets/images/default-game.jpg';">
             <div class="game-content">
                 <h3>${game.name}</h3>
@@ -53,3 +55,4 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
     `).join('');
 });
+
